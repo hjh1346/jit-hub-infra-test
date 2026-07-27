@@ -1,0 +1,31 @@
+auth:
+  enabled: false
+gateway:
+  enabled: false
+tourist:
+  enabled: false
+traffic:
+  enabled: false
+weather:
+  enabled: false
+sllm:
+  enabled: true
+  image:
+    repository: "172.16.8.10:30002/jit-hub/sllm-service"
+    tag: "seed"
+  location: "onprem"
+  loki:
+    mode: live
+    url: "http://onprem-monitoring-stack-loki:3100"
+  lambdaNotifyUrl: "https://fh0gglmd10.execute-api.ap-northeast-2.amazonaws.com/notify"
+  analyzeTimeoutSeconds: "300"
+  ollamaTimeoutSeconds: "300"
+  ollama:
+    image: "ollama/ollama:0.31.2"
+    resources:
+      requests:
+        cpu: "1"
+        memory: "5Gi"
+      limits:
+        cpu: "2"
+        memory: "6Gi"

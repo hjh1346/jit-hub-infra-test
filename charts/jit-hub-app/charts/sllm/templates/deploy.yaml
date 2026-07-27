@@ -30,3 +30,11 @@ spec:
           value: {{ .Values.loki.query | default "{cluster=~\".+\"}" | quote }}
         - name: ANALYZE_API_URL
           value: "http://sllm-service:8005/analyze"
+        - name: OLLAMA_TIMEOUT_SECONDS
+          value: {{ .Values.ollamaTimeoutSeconds | default "300" | quote }}
+        {{- if .Values.lambdaNotifyUrl }}
+        - name: LAMBDA_NOTIFY_URL
+          value: {{ .Values.lambdaNotifyUrl | quote }}
+        - name: LAMBDA_NOTIFY_TIMEOUT_SECONDS
+          value: {{ .Values.lambdaNotifyTimeoutSeconds | default "3" | quote }}
+        {{- end }}            
