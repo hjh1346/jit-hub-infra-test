@@ -3,16 +3,16 @@
 
 ingressRule:
   namespace: "jit-hub"
-  host: "ccmall.shop"
+  host: "cloudinfra.store"
 gateway:
   replicaCount: 1
   image:
-    repository: "harbor.ccmall.shop/jit-hub/jit-hub-gateway"
-    tag: "79d959256720"
+    repository: "172.16.8.10:30002/jit-hub/jit-hub-gateway"
+    tag: "seed"
 auth:
   replicaCount: 1
   image:
-    repository: "harbor.ccmall.shop/jit-hub/auth-service"
+    repository: "172.16.8.10:30002/jit-hub/auth-service"
     tag: "seed"
   db:
     enabled: true
@@ -27,7 +27,7 @@ auth:
 weather:
   replicaCount: 1
   image:
-    repository: "harbor.ccmall.shop/jit-hub/weather-service"
+    repository: "172.16.8.10:30002/jit-hub/weather-service"
     tag: "seed"
   db:
     enabled: true
@@ -42,7 +42,7 @@ weather:
 traffic:
   replicaCount: 1
   image:
-    repository: "harbor.ccmall.shop/jit-hub/traffic-service"
+    repository: "172.16.8.10:30002/jit-hub/traffic-service"
     tag: "seed"
   db:
     enabled: true
@@ -57,7 +57,7 @@ traffic:
 tourist:
   replicaCount: 1
   image:
-    repository: "harbor.ccmall.shop/jit-hub/tourist-service"
+    repository: "172.16.8.10:30002/jit-hub/tourist-service"
     tag: "seed"
   db:
     enabled: true
@@ -72,6 +72,11 @@ tourist:
 
 sllm:
   enabled: true # sLLM 분석 파이프라인은 onprem에서만 활성화 (7/15 팀 결정)
+  image:
+    repository: "172.16.8.10:30002/jit-hub/sllm-service"
+    tag: "seed"
   loki:
     mode: live
     url: "http://onprem-monitoring-stack-loki:3100"
+  ollamaTimeoutSeconds: "300"
+  analyzeTimeoutSeconds: "300"

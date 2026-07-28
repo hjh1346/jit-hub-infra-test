@@ -20,3 +20,5 @@ tfplan
 
 # Lambda 빌드 산출물 (archive_file이 생성하는 zip)
 terraform/aws/envs/personal-test/lambda_notify/build/terraform/aws/envs/personal-test/lambda_notify/src/__pycache__/
+charts/**/charts/*.tgz
+charts/**/Chart.lock

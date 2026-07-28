@@ -55,6 +55,8 @@ resource "helm_release" "ingress_nginx" {
   version          = "4.11.0"
   namespace        = "ingress-nginx"
   create_namespace = true
+  timeout          = 600
+  wait             = false
 }
 
 # ArgoCD 설치
@@ -65,6 +67,8 @@ resource "helm_release" "argocd" {
   version          = "10.1.2"
   namespace        = "argocd"
   create_namespace = true
+  timeout          = 600
+  wait             = false 
   values = [
     file("${path.module}/argocd/my-values.yaml")
   ]
