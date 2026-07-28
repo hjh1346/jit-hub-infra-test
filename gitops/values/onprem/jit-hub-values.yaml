@@ -84,4 +84,11 @@ sllm:
     persistence:
       enabled: true
       size: "10Gi"
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "1536Mi"
+      limits:
+        cpu: "1"
+        memory: "3Gi" # qwen2.5:3b 가중치(~1.8Gi)+KV캐시 여유. node2 allocatable ~3.7Gi 한도 내
   analyzeTimeoutSeconds: "300"
