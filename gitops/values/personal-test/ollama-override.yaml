@@ -1,0 +1,12 @@
+# 개인 온프레(node2, RAM ~3.7Gi) 전용 오버라이드. 팀 공유 values(gitops/values/onprem)에는 넣지 않음.
+# node2 메모리로는 팀 기본값 qwen2.5:7b 로딩이 불가능(OOM)해서 3b + 여유 메모리로 조정.
+sllm:
+  ollamaModel: "qwen2.5:3b"
+  ollama:
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "1536Mi"
+      limits:
+        cpu: "1"
+        memory: "3Gi" # qwen2.5:3b 가중치(~1.8Gi)+KV캐시 여유. node2 allocatable ~3.7Gi 한도 내
