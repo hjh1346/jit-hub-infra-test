@@ -79,4 +79,8 @@ sllm:
     mode: live
     url: "http://onprem-monitoring-stack-loki.monitoring.svc.cluster.local:3100"
   ollamaTimeoutSeconds: "300"
+  ollama:
+    persistence:
+      enabled: true
+      size: "10Gi"
   analyzeTimeoutSeconds: "300"

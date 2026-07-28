@@ -24,3 +24,14 @@ spec:
           limits:
             cpu: {{ .Values.ollama.resources.limits.cpu | default "2" | quote }}
             memory: {{ .Values.ollama.resources.limits.memory | default "4Gi" | quote }}
+          volumeMounts:
+          - name: ollama-models
+            mountPath: /root/.ollama
+      volumes:
+        - name: ollama-models
+          {{- if .Values.ollama.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: ollama-models-pvc
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
