@@ -1,3 +1,9 @@
+{{/*
+  persistence 없이 ollama를 띄우면 pod가 재시작될 때마다 모델을 처음부터 다시
+  pull해야 했고, 그 재다운로드 트래픽이 노드 ephemeral-storage를 채워
+  disk-pressure eviction -> 재시작 -> 재다운로드로 이어지는 반복을 유발했음.
+  모델을 PVC에 영구 저장해서 이 반복을 끊기 위해 추가.
+*/}}
 {{- if .Values.ollama.persistence.enabled }}
 apiVersion: v1
 kind: PersistentVolumeClaim

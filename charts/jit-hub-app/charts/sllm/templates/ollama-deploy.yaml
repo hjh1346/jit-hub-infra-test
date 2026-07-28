@@ -24,9 +24,14 @@ spec:
           limits:
             cpu: {{ .Values.ollama.resources.limits.cpu | default "2" | quote }}
             memory: {{ .Values.ollama.resources.limits.memory | default "4Gi" | quote }}
-          volumeMounts:
-          - name: ollama-models
-            mountPath: /root/.ollama
+        # volumeMounts는 container 스펙의 필드라 resources와 형제 레벨이어야 함.
+        # 예전엔 resources 블록 안에 중첩되어 있어서 무시(unknown field)되었고,
+        # 그 결과 PVC가 pod volume으로는 존재해도 컨테이너에 실제 마운트되지
+        # 않아 모델이 계속 ephemeral-storage에 쓰였음 -> PVC를 붙여도
+        # disk-pressure eviction이 그대로 재발했던 원인.
+        volumeMounts:
+        - name: ollama-models
+          mountPath: /root/.ollama
       volumes:
         - name: ollama-models
           {{- if .Values.ollama.persistence.enabled }}
