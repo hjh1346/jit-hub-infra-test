@@ -78,7 +78,7 @@ loki:
     storage: 50Gi
 
 lokiLoadBalancer:
-  enabled: true
+  enabled: false
   ip: 172.16.8.34
 
 # 큐레이션된 로그 전용 NFS 볼륨. jithub-log-curator DaemonSet이 대상 서비스
