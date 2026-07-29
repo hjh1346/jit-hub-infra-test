@@ -73,12 +73,12 @@ loki:
       existingClaim: loki-pvc
   nfs:
     enabled: true
-    server: "172.16.8.203"        # NFS 서버 IP (실제 IP로 변경 필요)
+    server: "172.16.8.10"        # NFS 서버 IP (실제 IP로 변경 필요)
     path: "/nfs/shared/jithub-loki"   # NFS 경로
     storage: 50Gi
 
 lokiLoadBalancer:
-  enabled: true
+  enabled: false
   ip: 172.16.8.34
 
 # 큐레이션된 로그 전용 NFS 볼륨. jithub-log-curator DaemonSet이 대상 서비스
@@ -88,11 +88,13 @@ lokiLoadBalancer:
 curatedLogs:
   enabled: true
   nfs:
-    server: "172.16.8.203"
+    server: "172.16.8.10"
     path: "/nfs/shared/jithub-curated"
     storage: 5Gi
   filterPattern: "ERROR|WARN|CRITICAL"
   targetApps: "auth,weather,traffic,tourist,gateway"
+  systemPods: "kube-apiserver,etcd,kube-controller-manager"
+  systemFilterPattern: "NodeNotReady|etcdserver: no leader|etcdserver: request timed out|connection refused|context deadline exceeded|failed to renew lease"
 
 promtail:
   enabled: true
