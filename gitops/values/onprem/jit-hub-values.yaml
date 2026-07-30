@@ -74,7 +74,7 @@ sllm:
   enabled: true # sLLM 분석 파이프라인은 onprem에서만 활성화 (7/15 팀 결정)
   image:
     repository: "172.16.8.10:30002/jit-hub/sllm-service"
-    tag: "seed"
+    tag: "cluster-failure-v4"
   loki:
     mode: live
     url: "http://onprem-monitoring-stack-loki.monitoring.svc.cluster.local:3100"
@@ -96,3 +96,5 @@ sllm:
     nodeSelector:
       kubernetes.io/hostname: node1
   analyzeTimeoutSeconds: "300"
+  lambdaNotifyUrl: "https://9o97rosq5k.execute-api.ap-northeast-2.amazonaws.com/notify"
+  lambdaNotifyTimeoutSeconds: "3"
