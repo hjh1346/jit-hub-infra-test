@@ -83,4 +83,16 @@ sllm:
     persistence:
       enabled: true
       size: "10Gi"
+    # qwen2.5:7b(~4.7Gi weights, CPU 추론 시 KV캐시 포함 실사용 6~7Gi대)를 담기 위해
+    # 상향. node2는 allocatable memory가 ~3.7Gi뿐이라 물리적으로 못 올라가므로
+    # 메모리 여유가 있는 node1에 고정한다.
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "4Gi"
+      limits:
+        cpu: "1"
+        memory: "8Gi"
+    nodeSelector:
+      kubernetes.io/hostname: node1
   analyzeTimeoutSeconds: "300"
