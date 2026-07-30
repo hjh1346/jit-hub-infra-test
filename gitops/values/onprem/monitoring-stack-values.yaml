@@ -6,9 +6,8 @@ kube-prometheus-stack:
 
   prometheus:
     service:
-      type: LoadBalancer
+      type: NodePort  # 개인 VM엔 MetalLB가 없어 LoadBalancer가 영구 pending -> sync 블로커였음
       port: 9090
-      loadBalancerIP: 172.16.8.32
     prometheusSpec:
       externalLabels:
         cluster: onprem
@@ -28,9 +27,8 @@ kube-prometheus-stack:
     enabled: true
     adminPassword: "admin"  # 운영 시 Secret으로 교체 필요
     service:
-      type: LoadBalancer
+      type: NodePort  # 개인 VM엔 MetalLB가 없어 LoadBalancer가 영구 pending -> sync 블로커였음
       port: 80
-      loadBalancerIP: 172.16.8.33
     sidecar:
       datasources:
         defaultDatasourceEnabled: false
